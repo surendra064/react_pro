@@ -1,11 +1,11 @@
 import React from 'react'
 
-function InputBox(label,
+function InputBox({label,
     amount,amountdisabled,
     onamountchange,currencyoptions,selectedcurrency,
-    oncurrencychange
+    oncurrencychange}
 ) {
-    console.log(currencyoptions);
+    // console.log(currencyoptions);
     
   return (
    <div className='bg-white p-3 rounded-lg text-sm flex'>

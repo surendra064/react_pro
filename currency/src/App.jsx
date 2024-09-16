@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -14,19 +14,24 @@ function App() {
   const swap = () => {
     setfrom(to)
     setto(from)
-    setconvertedamount(amount)
-    setamount(convertedamount)
+    // convert()
+    // setconvertedamount(amount)
+    // setamount(convertedamount)
   }
   const currencyinfo =useCurrencyInfo(from);
-  console.log(currencyinfo);
-  console.log(from);
+//   console.log(currencyinfo);
+//   console.log(from);
   
   const options=Object.keys(currencyinfo);
   const convert = () => {
     setconvertedamount(amount * currencyinfo[to])
+    console.log(`currency info ${currencyinfo[to]}`);
+    
   }
 
-
+  useEffect(() => {
+    convert();
+  }, [ from, to, currencyinfo]);
 
   
 
@@ -51,7 +56,7 @@ function App() {
                             label="From"
                             amount={amount}
                             currencyoptions={options}
-                            oncurrencychange={(currency) => setamount(amount)}
+                            oncurrencychange={(currency) => setfrom(currency)}
                             selectedcurrency={from}
                             onamountchange={(amount) => setamount(amount)}
                         />
@@ -60,7 +65,7 @@ function App() {
                         <button
                             type="button"
                             className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 border-2 border-white rounded-md bg-blue-600 text-white px-2 py-0.5"
-                            // onClick={swap}
+                            onClick={swap}
                         >
                             swap
                         </button>
@@ -71,7 +76,7 @@ function App() {
                             amount={convertedamount}
                             currencyoptions={options}
                             oncurrencychange={(currency) => setto(currency)}
-                            selectedcurrency={from}
+                            selectedcurrency={to}
                             amountdisabled
                         />
                     </div>
