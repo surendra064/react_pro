@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import appwriteService from '../appwrite/config';
+import { useSelector } from 'react-redux';
 
 function Post() {
      
     const [post,setpost]=useState(null);
     const navigate=useNavigate();
     const {slug}=useParams();
+
+    const userData=useSelector((state)=>(state.auth.userData))
+    const isAuthor=post &&userData? post.userId === userData.$id : false;
     useEffect(()=>{
         if(slug)
         {
